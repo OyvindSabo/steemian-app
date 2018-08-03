@@ -1,0 +1,66 @@
+<head>
+  
+
+  <script>
+    var api = sc2.Initialize({
+      app: 'steemian-app',
+      callbackURL: 'https://steemian.app/',
+      //accessToken: 'access_token',
+      scope: ['vote', 'comment']
+    });
+    function handleLogin() {
+      console.log("handleLogin()")
+      console.log('cookie');
+      var accessToken;
+      if (window.location.search) {
+        urlParameters = window.location.search.substr(1).split("&")
+        accessToken = urlParameters[0].substr(13);
+        username = urlParameters[2].substr(9);
+        console.log(urlParameters);
+        console.log(accessToken);
+        console.log(username);
+        //console.log(window.location.href);
+        console.log(window.location.search.substr(1));
+      }
+      if (accessToken) { // if logged in
+        console.log("found access token")
+        api.setAccessToken([accessToken]);
+        api.me(function (err, res) {
+          console.log(err, res)
+        });
+        console.log('the api has been updated with the access token');
+        document.getElementById("logged-in").style.display="inline";
+        document.getElementById("not-logged-in").style.display="none";
+      }
+      else {
+        console.log("did not find access token");
+        document.getElementById("logged-in").style.display="none";
+        document.getElementById("not-logged-in").style.display="inline";
+      }
+    }
+    function getUrlParameters() {
+    }
+    function getApi() {
+        return api;
+    }
+    function getLoginURL() {
+      //e.preventDefault();
+      let link = api.getLoginURL();
+      return link;
+      //window.location.href = link;
+    }
+    function goToLogin() {
+      window.location.href = getLoginURL();
+    }
+  </script>
+</head>
+
+<body onload="handleLogin()">
+  <div id="logged-in">
+    <h1>Success</h1>
+  </div>
+  
+  <div id="not-logged-in">
+    <button onclick="goToLogin()">Log on with SteemConnect V2</button>
+  </div>
+</body>

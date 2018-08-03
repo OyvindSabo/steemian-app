@@ -1,0 +1,31 @@
+<script>
+  var api = sc2.Initialize({
+    app: 'steemian-app',
+    callbackURL: 'https://steemian.app/dashboard/',
+    //accessToken: 'access_token',
+    scope: ['vote', 'comment']
+  });
+  let accessToken;
+  let username;
+    if (window.location.search) {
+      let urlParameters = window.location.search.substr(1).split("&")
+      accessToken = urlParameters[0].substr(13);
+      username = urlParameters[2].substr(9);
+      console.log(urlParameters);
+      console.log(accessToken);
+      console.log(username);
+      //console.log(window.location.href);
+      console.log(window.location.search.substr(1));
+    }
+    if (accessToken) { // if logged in
+      console.log("found access token")
+      api.setAccessToken([accessToken]);
+      api.me(function (err, res) {
+        console.log(err, res)
+      });
+      console.log('the api has been updated with the access token');
+    }
+    else {
+      window.location.href = api.getLoginURL();
+    }
+</script>
