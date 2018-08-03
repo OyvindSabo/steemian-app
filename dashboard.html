@@ -7,25 +7,59 @@
   });
   let accessToken;
   let username;
-    if (window.location.search) {
-      let urlParameters = window.location.search.substr(1).split("&")
-      accessToken = urlParameters[0].substr(13);
-      username = urlParameters[2].substr(9);
-      console.log(urlParameters);
-      console.log(accessToken);
-      console.log(username);
-      //console.log(window.location.href);
-      console.log(window.location.search.substr(1));
-    }
-    if (accessToken) { // if logged in
-      console.log("found access token")
-      api.setAccessToken([accessToken]);
-      api.me(function (err, res) {
-        console.log(err, res)
-      });
-      console.log('the api has been updated with the access token');
-    }
-    else {
-      window.location.href = api.getLoginURL();
-    }
+  if (window.location.search) {
+    let urlParameters = window.location.search.substr(1).split("&")
+    accessToken = urlParameters[0].substr(13);
+    username = urlParameters[2].substr(9);
+    console.log(urlParameters);
+    console.log(accessToken);
+    console.log(username);
+    //console.log(window.location.href);
+    console.log(window.location.search.substr(1));
+  }
+  if (accessToken) { // if logged in
+    console.log("found access token")
+    api.setAccessToken([accessToken]);
+    api.me(function (err, res) {
+      console.log(err, res)
+    });
+    console.log('the api has been updated with the access token');
+  }
+  else {
+    window.location.href = api.getLoginURL();
+  }
+
+  function openSpellChecker() {
+    document.getElementById("spellChecker").style.display = "inline";
+    document.getElementById("freeIllustrations").style.display = "none";
+    document.getElementById("about").style.display = "none";
+  }
+
+  function openFreeIllustrations() {
+    document.getElementById("spellChecker").style.display = "none";
+    document.getElementById("freeIllustrations").style.display = "inline";
+    document.getElementById("about").style.display = "none";
+  }
+  function openAbout() {
+    document.getElementById("spellChecker").style.display = "none";
+    document.getElementById("freeIllustrations").style.display = "none";
+    document.getElementById("about").style.display = "inline";
+  }
 </script>
+  
+<body>
+  <div class="btn-group" style="width:100%">
+    <button style="width:33%" onclick="openSpellChecker()">Spell checker</button>
+    <button style="width:33%" onclick="openFreeIllustrations()">Free illustrations</button>
+    <button style="width:33%" onclick="openAbout()">About</button>
+  </div>
+  <div id=spellChecker>
+    <h1>The spellchecker goes here</h1>
+  </div>
+  <div id=freeIllustrations>
+    <h1>Images go here</h1>
+  </div>
+  <div id=about>
+    <h1>About information goes here</h1>
+  </div>
+</body>
