@@ -45,6 +45,9 @@
     document.getElementById("freeIllustrations").style.display = "none";
     document.getElementById("about").style.display = "inline";
   }
+  function elasticSearch(searchInput) {
+    document.getElementById("searchResults").innerHTML = searchInput;
+  }
 </script>
   
 <body>
@@ -53,16 +56,20 @@
     <button style="width:33%" onclick="openFreeIllustrations()">Free illustrations</button>
     <button style="width:33%" onclick="openAbout()">About</button>
   </div>
+
   <div id=spellChecker style="display:inline;text-align:center">
     <h1>The spellchecker goes here</h1>
   </div>
+  
   <div id=freeIllustrations style="display:none;text-align:center">
     <form>
       Search:<br>
-      <input type="text" name="searchInput"><br>
+      <input autocomplete="off" type="text" name="searchInput" oninput="elasticSearch(value)"><br>
     </form>
+    <p id="searchResults">searchResults</p>
     <h1>Images go here</h1>
   </div>
+  
   <div id=about style="display:none;text-align:center">
     <h1>About information goes here</h1>
   </div>
