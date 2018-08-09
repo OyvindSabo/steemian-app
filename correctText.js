@@ -185,6 +185,7 @@ mistakeDictionary = {
   'sever pain': 'severe pain',
   'sneak peak': 'sneak peek',
   'speshul': 'special',
+  'Steamit': 'Steemit',
   'Stremit': 'Steemit',
   'succesfully': 'successfully',
   'succesful': 'successful',
