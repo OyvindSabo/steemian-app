@@ -1,133 +1,159 @@
 <script>
-    const freeIllustrations = [
-      {
-        url: 'https://cdn.steemitimages.com/DQmZPi8epjt1qaEJrQzYs5p3K4FJgJNzvcyHjnep14C1ArF/Steemian.app%20profile%20picture%201.jpg',
-        steemitLink: '![Steemian.app profile picture 1.jpg](https://cdn.steemitimages.com/DQmZPi8epjt1qaEJrQzYs5p3K4FJgJNzvcyHjnep14C1ArF/Steemian.app%20profile%20picture%201.jpg)',
-        tags: ['logo', 'steemian', 'app', 'design'],
-      },
-      {
-        url: 'https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmcygZfJkv1bSfAsUNJFx5aHgBPbsD3eHYJ9ew7jPdWGA5/IMG_2118%20Steemit%20Header.jpg',
-        steemitLink: '![IMG_2118 Steemit Header.jpg](https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmcygZfJkv1bSfAsUNJFx5aHgBPbsD3eHYJ9ew7jPdWGA5/IMG_2118%20Steemit%20Header.jpg)',
-        tags: ['oslo', 'steemit', 'appreciation', 'design'],
-      },
-    ];
-    
-    let INDEX = {};
-    
-    var api = sc2.Initialize({
-      app: 'steemian-app',
-      callbackURL: 'https://steemian.app/dashboard/',
-      //accessToken: 'access_token',
-      scope: ['vote', 'comment']
-    });
-    let accessToken;
-    let username;
-    if (window.location.search) {
-      let urlParameters = window.location.search.substr(1).split("&")
-      accessToken = urlParameters[0].substr(13);
-      username = urlParameters[2].substr(9);
-      console.log(urlParameters);
-      console.log(accessToken);
-      console.log(username);
-      //console.log(window.location.href);
-      console.log(window.location.search.substr(1));
+  const freeIllustrations = [
+    {
+      url: 'https://cdn.steemitimages.com/DQmZPi8epjt1qaEJrQzYs5p3K4FJgJNzvcyHjnep14C1ArF/Steemian.app%20profile%20picture%201.jpg',
+      steemitLink: '![Steemian.app profile picture 1.jpg](https://cdn.steemitimages.com/DQmZPi8epjt1qaEJrQzYs5p3K4FJgJNzvcyHjnep14C1ArF/Steemian.app%20profile%20picture%201.jpg)',
+      tags: ['logo', 'steemian', 'app', 'design'],
+    },
+    {
+      url: 'https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmcygZfJkv1bSfAsUNJFx5aHgBPbsD3eHYJ9ew7jPdWGA5/IMG_2118%20Steemit%20Header.jpg',
+      steemitLink: '![IMG_2118 Steemit Header.jpg](https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmcygZfJkv1bSfAsUNJFx5aHgBPbsD3eHYJ9ew7jPdWGA5/IMG_2118%20Steemit%20Header.jpg)',
+      tags: ['oslo', 'steemit', 'appreciation', 'design'],
+    },
+    {
+      url: 'https://cdn.steemitimages.com/DQmTpQ4Vga2dYJwjYi3RSmAC7KnWTxXTqRafaAZkMAqEkZg/Steemit%20IMG_2976.jpg',
+      steemitLink: '![Steemit IMG_2976.jpg](https://cdn.steemitimages.com/DQmTpQ4Vga2dYJwjYi3RSmAC7KnWTxXTqRafaAZkMAqEkZg/Steemit%20IMG_2976.jpg)',
+      tags: ['molde', 'saw', 'jigsaw', 'bush', 'work'],
     }
-    if (accessToken) { // if logged in
-      console.log("found access token")
-      api.setAccessToken([accessToken]);
-      api.me(function (err, res) {
-        console.log(err, res)
-      });
-      console.log('the api has been updated with the access token');
-      INDEX = createIndex(freeIllustrations);
-    }
-    else {
-      window.location.href = api.getLoginURL();
-    }
+  ];
   
-    function openSpellChecker() {
-      document.getElementById("spellChecker").style.display = "inline";
-      document.getElementById("freeIllustrations").style.display = "none";
-      document.getElementById("about").style.display = "none";
-    }
-  
-    function openFreeIllustrations() {
-      document.getElementById("spellChecker").style.display = "none";
-      document.getElementById("freeIllustrations").style.display = "inline";
-      document.getElementById("about").style.display = "none";
-    }
-    
-    function openAbout() {
-      document.getElementById("spellChecker").style.display = "none";
-      document.getElementById("freeIllustrations").style.display = "none";
-      document.getElementById("about").style.display = "inline";
-    }
-    
-    function createIndex(imageObjectArray) {
-      let index = {imageIndex: {}, tagIndex: {}};
-      // Create imageIndex
-      for (let image of imageObjectArray) {
-        for (let tag of image.tags) {
-          if (index.imageIndex[tag] === undefined) {
-            index.imageIndex[tag] = [image];
-          }
-          else if (index.imageIndex[tag].indexOf(image) === -1) {
-            index.imageIndex[tag].push(image);
-          }
-        }
-      }
-      // Create tagIndex
-      for (let tag of Object.keys(index.imageIndex)) {
-        // For each letterIndex in tag
-        for (let i of tag.split('').keys()) {
-          let key = tag.substr(0, i+1);
-          if (index.tagIndex[key] === undefined) {
-            index.tagIndex[key] = [tag];
-          }
-          else if (index.tagIndex[key].indexOf(tag) === -1) {
-            index.tagIndex[key].push(tag);
-          }
-        }
-      }
-      return index;
-    }
-    
-    /*
-    function elasticSearch(searchInput) {
-      document.getElementById("searchResults").innerHTML = searchInput;
-    }
-    */
-    
-    function elasticSearch(searchInput) {
-      const index = INDEX;
-      const tags = index.tagIndex[searchInput] || [];
-      //document.getElementById("searchResults").innerHTML = tags; //TODO
-      const results = tags.map(tag => index.imageIndex[tag]) || [];
-      console.log(results);
-      document.getElementById("searchResults").innerHTML = results.map(result => '<br><center><img src="' + result[0].url + '"style="width:50%;height:50%;"></center><center><code>' + result[0].steemitLink + '</code></center>').join('\n');
+  const MISTAKEDICTIONARY = {
+    'hlep': 'help',
   }
-  </script>
-    
-  <body>
-    <div class="btn-group" style="width:100%">
-      <button style="width:33%" onclick="openSpellChecker()">Spell checker</button>
-      <button style="width:33%" onclick="openFreeIllustrations()">Free illustrations</button>
-      <button style="width:33%" onclick="openAbout()">About</button>
-    </div>
-    
-    <div id=spellChecker style="display:inline;text-align:center">
-      <h1>The spellchecker goes here</h1>
-    </div>
-    
-    <div id=freeIllustrations style="display:none;text-align:center">
-      <form>
-        Search:<br>
-        <input autocomplete="off" type="text" name="searchInput" oninput="elasticSearch(value)"><br>
-      </form>
-      <p id="searchResults"></p>
-    </div>
-    
-    <div id=about style="display:none;text-align:center">
-      <h1>About information goes here</h1>
-    </div>
-  </body>
+  
+  let INDEX = {};
+  
+  var api = sc2.Initialize({
+    app: 'steemian-app',
+    callbackURL: 'https://steemian.app/dashboard/',
+    //accessToken: 'access_token',
+    scope: ['vote', 'comment']
+  });
+  let accessToken;
+  let username;
+  if (window.location.search) {
+    let urlParameters = window.location.search.substr(1).split("&")
+    accessToken = urlParameters[0].substr(13);
+    username = urlParameters[2].substr(9);
+    console.log(urlParameters);
+    console.log(accessToken);
+    console.log(username);
+    //console.log(window.location.href);
+    console.log(window.location.search.substr(1));
+  }
+  if (accessToken) { // if logged in
+    console.log("found access token")
+    api.setAccessToken([accessToken]);
+    api.me(function (err, res) {
+      console.log(err, res)
+    });
+    console.log('the api has been updated with the access token');
+    INDEX = createIndex(freeIllustrations);
+  }
+  else {
+    window.location.href = api.getLoginURL();
+  }
+
+  function openSpellChecker() {
+    document.getElementById("spellChecker").style.display = "inline";
+    document.getElementById("freeIllustrations").style.display = "none";
+    document.getElementById("about").style.display = "none";
+  }
+
+  function openFreeIllustrations() {
+    document.getElementById("spellChecker").style.display = "none";
+    document.getElementById("freeIllustrations").style.display = "inline";
+    document.getElementById("about").style.display = "none";
+  }
+  
+  function openAbout() {
+    document.getElementById("spellChecker").style.display = "none";
+    document.getElementById("freeIllustrations").style.display = "none";
+    document.getElementById("about").style.display = "inline";
+  }
+  
+  function createIndex(imageObjectArray) {
+    let index = {imageIndex: {}, tagIndex: {}};
+    // Create imageIndex
+    for (let image of imageObjectArray) {
+      for (let tag of image.tags) {
+        if (index.imageIndex[tag] === undefined) {
+          index.imageIndex[tag] = [image];
+        }
+        else if (index.imageIndex[tag].indexOf(image) === -1) {
+          index.imageIndex[tag].push(image);
+        }
+      }
+    }
+    // Create tagIndex
+    for (let tag of Object.keys(index.imageIndex)) {
+      // For each letterIndex in tag
+      for (let i of tag.split('').keys()) {
+        let key = tag.substr(0, i+1);
+        if (index.tagIndex[key] === undefined) {
+          index.tagIndex[key] = [tag];
+        }
+        else if (index.tagIndex[key].indexOf(tag) === -1) {
+          index.tagIndex[key].push(tag);
+        }
+      }
+    }
+    return index;
+  }
+  
+  /*
+  function elasticSearch(searchInput) {
+    document.getElementById("searchResults").innerHTML = searchInput;
+  }
+  */
+  
+  function elasticSearch(searchInput) {
+    const index = INDEX;
+    const tags = index.tagIndex[searchInput] || [];
+    //document.getElementById("searchResults").innerHTML = tags; //TODO
+    const results = tags.map(tag => index.imageIndex[tag]) || [];
+    console.log(results);
+    document.getElementById("searchResults").innerHTML = results.map(result => '<br><center><img src="' + result[0].url + '"style="width:50%;height:50%;"></center><center><code>' + result[0].steemitLink + '</code></center>').join('\n');
+  }
+  
+  function runCorrectText(value) {
+    var input = value;
+    document.getElementById("correctionOutput").innerHTML = correctText(input, MISTAKEDICTIONARY);
+  }
+  
+  function correctText(text, mistakeDictionary) {
+    return text.split(' ').map(word => mistakeDictionary[word] ? '<span title="suggestion: ' + mistakeDictionary[word] + '" style="color:red">' + word + '</span>' : word).join(' ');
+  }
+</script>
+  
+<body>
+  <div class="btn-group" style="width:100%">
+    <button style="width:33%" onclick="openSpellChecker()">Spell checker</button>
+    <button style="width:33%" onclick="openFreeIllustrations()">Free illustrations</button>
+    <button style="width:33%" onclick="openAbout()">About</button>
+  </div>
+  
+  <!-- Spell Checker -->
+  <div id=spellChecker style="display:inline;text-align:center">
+    <form>
+      Paste your text to highlight mistakes<br>
+      <textarea id="correctionInput" name="input" rows="10" cols="80" oninput="runCorrectText(value)"></textarea>
+	</form>
+	<br>
+	<div id="correctionOutput" style="text-align:left"></div>
+  </div>
+  
+  <!-- Free Illustrations -->
+  <div id=freeIllustrations style="display:none;text-align:center">
+    <form>
+      Search:<br>
+      <input autocomplete="off" type="text" name="searchInput" oninput="elasticSearch(value)"><br>
+    </form>
+    <p id="searchResults"></p>
+  </div>
+  
+  <!-- About -->
+  <div id=about style="display:none;text-align:center">
+    <h1>About information goes here</h1>
+  </div>
+</body>
