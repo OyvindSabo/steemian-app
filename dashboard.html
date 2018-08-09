@@ -101,12 +101,6 @@
     return index;
   }
   
-  /*
-  function elasticSearch(searchInput) {
-    document.getElementById("searchResults").innerHTML = searchInput;
-  }
-  */
-  
   function elasticSearch(searchInput) {
     const index = INDEX;
     const tags = index.tagIndex[searchInput] || [];
