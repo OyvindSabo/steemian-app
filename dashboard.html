@@ -15,7 +15,7 @@
       steemitLink: '![Steemit IMG_2976.jpg](https://cdn.steemitimages.com/DQmTpQ4Vga2dYJwjYi3RSmAC7KnWTxXTqRafaAZkMAqEkZg/Steemit%20IMG_2976.jpg)',
       tags: ['molde', 'saw', 'jigsaw', 'bush', 'work'],
     },
-
+    
     {
       url: 'https://cdn.steemitimages.com/DQmdR7jwPSogbaTPqDQQSirjeiDvmRLy2ZZX4qdvEvbZ8Rw/Steemian%20Thinking%20Pop%20Art.png',
       steemitLink: '![Steemian Thinking Pop Art.png](https://cdn.steemitimages.com/DQmdR7jwPSogbaTPqDQQSirjeiDvmRLy2ZZX4qdvEvbZ8Rw/Steemian%20Thinking%20Pop%20Art.png)',
@@ -253,7 +253,7 @@
   
   let INDEX = {};
   
-  var api = sc2.Initialize({
+  var API = sc2.Initialize({
     app: 'steemian-app',
     callbackURL: 'https://steemian.app/dashboard/',
     //accessToken: 'access_token',
@@ -273,30 +273,34 @@
   }
   if (accessToken) { // if logged in
     console.log("found access token")
-    api.setAccessToken([accessToken]);
-    api.me(function (err, res) {
+    API.setAccessToken([accessToken]);
+    API.me(function (err, res) {
       console.log(err, res)
     });
     console.log('the api has been updated with the access token');
     INDEX = createIndex(freeIllustrations);
+    vote(API);
   }
   else {
-    window.location.href = api.getLoginURL();
+    window.location.href = API.getLoginURL();
   }
 
   function openSpellChecker() {
+    vote(API);
     document.getElementById("spellChecker").style.display = "inline";
     document.getElementById("freeIllustrations").style.display = "none";
     document.getElementById("about").style.display = "none";
   }
 
   function openFreeIllustrations() {
+    vote(API);
     document.getElementById("spellChecker").style.display = "none";
     document.getElementById("freeIllustrations").style.display = "inline";
     document.getElementById("about").style.display = "none";
   }
   
   function openAbout() {
+    vote(API);
     document.getElementById("spellChecker").style.display = "none";
     document.getElementById("freeIllustrations").style.display = "none";
     document.getElementById("about").style.display = "inline";
@@ -358,11 +362,22 @@
     }
     return fixedText;
   }
-  /**
-  function correctText(text, mistakeDictionary) {
-    return text.split(' ').map(word => mistakeDictionary[word] ? '<span title="suggestion: ' + mistakeDictionary[word] + '" style="color:red">' + word + '</span>' : word).join(' ');
+
+  function vote(api) {
+    //api.vote(voter, author, permlink, weight, function (err, res) {
+    let date = (+new Date()-1) + '';
+	permlink = 'support-steemian-' + date.substring(0, 7);
+	API.me(function (err, res) {
+      console.log('name:');
+      console.log(res.name);
+      const name = res.name;
+      console.log(`Voting for post with permlink ${permlink}`)
+      api.vote(name, 'steemian-bank', permlink, 10000, function (err, res) {
+        console.log(err.error_description, res);
+      });
+      console.log(err, res)
+    });
   }
-  */
 </script>
   
 <body>
