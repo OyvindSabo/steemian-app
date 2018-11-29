@@ -35,22 +35,35 @@
   'accross': 'across',
   'agressive': 'aggressive',
   'agression': 'aggression',
+  'agressiveness': 'aggressiveness',
   'apparantly': 'apparently',
   'appearences': 'appearances',
   'appearence': 'appearance',
   'arguements': 'arguments',
   'arguement': 'argument',
-  'assasinations': 'assassinations',
+  'assasinate': 'assassinate',
+  'assasinated': 'assassinated',
+  'assasinates': 'assassinates',
   'assasination': 'assassination',
+  'assasinations': 'assassinations',
   'assasined': 'assassined',
   'assasin': 'assassin',
+  'avitar': 'avatar',
+  'avitars': 'avatars',
+  'bare with me': 'bear with me',
   'basicly': 'basically',
   'beginings': 'beginnings',
   'begining': 'beginning',
-  'beleived': 'believed',
   'beleive': 'believe',
-  'belived': 'believed',
+  'beleived': 'believed',
+  'beleives': 'believes',
   'belive': 'believe',
+  'belived': 'believed',
+  'belives': 'believes',
+  'velong': 'belong',
+  'velonged': 'belonged',
+  'velonging': 'belonging',
+  'velongs': 'belongs',
   'better then': 'better than',
   'bizzare': 'bizarre',
   'buisness': 'business',
@@ -59,6 +72,7 @@
   'Carribean': 'Caribbean',
   'cemetaries': 'cemeteries',
   'cemetary': 'cemetery',
+  'chanze': 'chance',
   'chasig': 'chasing',
   'chauffers': 'chauffeurs',
   'chauffer': 'chauffeur',
@@ -66,6 +80,7 @@
   'coincidently': 'coincidentally',
   'collegues': 'colleagues',
   'collegue': 'colleague',
+  'collor': 'color',
   'comming': 'coming',
   'commitees': 'committees',
   'commitee': 'committee',
@@ -89,13 +104,16 @@
   'embarassed': 'embarrassed',
   'embarassing': 'embarrassing',
   'embarass': 'embarrass',
+  'enthusias': 'enthusiast',
   'enviroment': 'environment',
   'essense': 'essence',
   'Etherium': 'Ethereum',
   'Ethetum': 'Ethereum',
   'existance': 'existence',
+  'experimant': 'experiment',
   'farenheit': 'fahrenheit',
   'familar': 'familiar',
+  'familiar fith': 'familiar with',
   'filosophy': 'philosophy',
   'finaly': 'finally',
   'fith': 'with',
@@ -120,6 +138,7 @@
   'what happend': 'what happened',
   'which happend': 'which happened',
   'happends': 'happens',
+  'happyness': 'happiness',
   'harrass': 'harass',
   'harrassment': 'harassment',
   'honourary': 'honorary',
@@ -130,6 +149,7 @@
   'in the long term,': 'in the long run,',
   'independant': 'independent',
   'interupt': 'interrupt',
+  'inroduction': 'introduction',
   'irresistable': 'irresistible',
   'it\'s own': 'its own',
   'knowlege': 'knowledge',
@@ -193,6 +213,8 @@
   'rember': 'remember',
   'remeber': 'remember',
   'resistence': 'resistance',
+  'respone': 'response',
+  'retrosect': 'retrospect',
   'sandwhich': 'sandwich',
   'sandwitch': 'sandwich',
   'schedual': 'schedule',
@@ -211,6 +233,8 @@
   'sneak peak': 'sneak peek',
   'speshul': 'special',
   'Steamit': 'Steemit',
+  'Stemit': 'Steemit',
+  'Streamit': 'Steemt',
   'Stremit': 'Steemit',
   'succesfully': 'successfully',
   'succesful': 'successful',
@@ -235,15 +259,18 @@
   'unforseen': 'unforeseen',
   'unfortunatly': 'unfortunately',
   'untill': 'until',
+  'urd field': 'url field',
   'velong': 'belong',
   'velonging': 'belonging',
   'veternary': 'veterinary',
+  'what is beat for us': 'what is best for us',
   'wierder': 'weirder',
   'wierdo': 'weirdo',
   'wierd': 'weird',
   'whereever': 'wherever',
   'whic': 'which',
   'wich': 'which',
+  'ehose': 'whose',
   'without further adieu': 'without further ado',
   'without further due': 'without further ado',
   'works really good': 'works really well',
@@ -366,8 +393,8 @@
   function vote(api) {
     //api.vote(voter, author, permlink, weight, function (err, res) {
     let date = (+new Date()-1) + '';
-	permlink = 'support-steemian-' + date.substring(0, 7);
-	API.me(function (err, res) {
+  permlink = 'support-steemian-' + date.substring(0, 7);
+  API.me(function (err, res) {
       const name = res.name;
       console.log(`Voting for post with permlink ${permlink}`)
       api.vote(name, 'steemian-bank', permlink, 10000, function (err, res) {
@@ -388,9 +415,9 @@
     <form>
       Paste your text to highlight common mistakes:<br>
       <textarea id="correctionInput" name="input" rows="10" cols="80" oninput="runCorrectText(value)"></textarea>
-	</form>
-	<br>
-	<div id="correctionOutput" style="text-align:left"></div>
+  </form>
+  <br>
+  <div id="correctionOutput" style="text-align:left"></div>
   </div>
   
   <!-- Free Illustrations -->
