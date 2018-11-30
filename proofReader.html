@@ -1,5 +1,5 @@
 <script>
-  mistakeDictionary = {
+  MISTAKEDICTIONARY = {
     'avove': 'above',
     'absense': 'absence',
     'accomodated': 'accommodated',
@@ -235,7 +235,7 @@
   let accessToken;
   let username;
   if (window.location.search) {
-    let urlParameters = window.location.search.substr(1).split("&")
+    let urlParameters = window.location.search.substr(1).split('&')
     accessToken = urlParameters[0].substr(13);
     username = urlParameters[2].substr(9);
     console.log(urlParameters);
@@ -245,13 +245,12 @@
     console.log(window.location.search.substr(1));
   }
   if (accessToken) { // if logged in
-    console.log("found access token")
+    console.log('found access token')
     API.setAccessToken([accessToken]);
     API.me(function (err, res) {
       console.log(err, res)
     });
     console.log('the api has been updated with the access token');
-    INDEX = createIndex(freeIllustrations);
     vote(API);
   }
   else {
@@ -260,7 +259,8 @@
 
   function runCorrectText(value) {
     var input = value;
-    document.getElementById("correctionOutput").innerHTML = correctText(input, MISTAKEDICTIONARY);
+    document.getElementById('correctedOutput').style.display = value === '' ? 'none' : 'block';
+    document.getElementById('correctedOutput').innerHTML = correctText(input, MISTAKEDICTIONARY);
   }
 
   function correctText(text, mistakeDictionary) {
@@ -270,7 +270,7 @@
     for (let mistake of Object.keys(mistakeDictionary)) {
       let mistakeIndex = lowerText.indexOf(mistake.toLowerCase());
       if (mistakeIndex !== -1 && (mistakeIndex-1 < 0 || !alphaNumerical(lowerText.charAt(mistakeIndex-1))) && (mistakeIndex+mistake.length === lowerText.length || !alphaNumerical(lowerText.charAt(mistakeIndex+mistake.length)))) {
-        fixedText = fixedText.substr(0, mistakeIndex) + '<span title="suggestion: ' + mistakeDictionary[mistake] + '" style="color:red">' + fixedText.substr(mistakeIndex, mistake.length) + '</span>' + fixedText.substring(mistakeIndex + mistake.length);
+        fixedText = fixedText.substr(0, mistakeIndex) + '<span title=\'suggestion: ' + mistakeDictionary[mistake] + '\' style=\'color:red\'>' + fixedText.substr(mistakeIndex, mistake.length) + '</span>' + fixedText.substring(mistakeIndex + mistake.length);
         lowerText = fixedText.toLowerCase();
       }
     }
@@ -292,12 +292,14 @@
   }
 </script>
 <body>
-  <div id=spellChecker style="display:inline;text-align:center">
+  <div id=spellChecker style='display:inline;text-align:center'>
     <form>
-      Paste your text to highlight common mistakes:<br>
-      <textarea id="correctionInput" name="input" rows="10" cols="80" oninput="runCorrectText(value)"></textarea>
+      <span class='infoText'>Paste your text to highlight common mistakes:</span>
+      <br>
+      <br>
+      <textarea id='correctionInput' name='input' rows='10' cols='80' oninput='runCorrectText(value)'></textarea>
     </form>
     <br>
-    <div id="correctionOutput" style="text-align:left"></div>
+    <div id='correctedOutput' class='correctedOutput' style='display:none;text-align:left'></div>
   </div>
 </body>
