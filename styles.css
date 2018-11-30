@@ -1,0 +1,38 @@
+/* Set background color */
+body {
+	background-color: Turquoise !important;
+}
+
+/* Make sure info text is dark grey */
+.infoText {
+	color: DarkSlateGrey !important;
+}
+
+/* Remove default styling from textarea */
+textarea {
+	border-style: solid !important;
+	border-radius: 5px !important;
+	outline: none !important;
+	padding: 10px !important;
+	resize: none !important;
+	border:none !important;
+}
+
+/* Format corrected text */
+.correctedOutput {
+	background-color: White !important;
+	white-space: pre-wrap !important;
+	word-wrap: break-word !important;
+	border-radius: 5px !important;
+	padding: 10px !important;
+}
+
+/* Make footer translucent */
+.ast-footer-overlay {
+	background-color: rgba(255, 255, 255, .0) !important;
+}
+
+/* Make sure copyright notice is dark grey */
+.ast-small-footer-section {
+	color: DarkSlateGrey !important;
+}
