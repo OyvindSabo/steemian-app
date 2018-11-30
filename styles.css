@@ -8,6 +8,12 @@ body {
 	color: DarkSlateGrey !important;
 }
 
+/* All things in the spell checker widget */
+.spellChecker {
+	text-align: center !important;
+	display: inline !important;
+}
+
 /* Remove default styling from textarea */
 textarea {
 	border-style: solid !important;
